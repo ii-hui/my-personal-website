@@ -52,7 +52,7 @@ function App() {
       <nav className="navbar">
         <div className="navbar-container">
           <div className="navbar-brand">
-            <img src="/LOGO.png" alt="Logo" className="navbar-logo" />
+            <img src="/LOGO.png" alt="秦皇岛港湾家政Logo" className="navbar-logo" />
             <span className="brand-text">秦皇岛港湾家政</span>
           </div>
 
@@ -60,6 +60,7 @@ function App() {
           <button 
             className="hamburger"
             onClick={() => setNavOpen(!navOpen)}
+            aria-label="菜单"
           >
             <span></span>
             <span></span>
@@ -93,7 +94,7 @@ function App() {
         <div className="hero-content">
           {/* LOGO在上方 */}
           <div className="hero-logo">
-            <img src="/LOGO.png" alt="Logo" className="hero-logo-img" />
+            <img src="/LOGO.png" alt="秦皇岛港湾家政 - 专业家政服务" className="hero-logo-img" />
           </div>
           <h1>专注于本地服务的高端家政</h1>
           <p>我们的联系电话是：18533552006</p>
@@ -118,12 +119,18 @@ function App() {
             filteredPosts.map((post) => (
               <article key={post.id} className="post-card">
                 {post.image_url && (
-                  <img src={post.image_url} alt={post.title} className="post-image" />
+                  <img 
+                    src={post.image_url} 
+                    alt={post.image_alt || post.title} 
+                    title={post.image_caption || post.title}
+                    loading="lazy"
+                    className="post-image" 
+                  />
                 )}
                 <div className="post-content">
                   <h3>{post.title}</h3>
                   <p>{post.content}</p>
-                  <small>{new Date(post.created_at).toLocaleDateString()}</small>
+                  <small>{new Date(post.created_at).toLocaleDateString('zh-CN')}</small>
                 </div>
               </article>
             ))
@@ -139,7 +146,7 @@ function App() {
           <div className="advantages-grid">
             <div className="advantage-card">
               <div className="advantage-image">
-                <img src="/images/card-training.png" alt="专业培训" className="card-img" />
+                <img src="/images/card-training.png" alt="专业培训认证" className="card-img" />
               </div>
               <h3>专业培训</h3>
               <p>所有员工均经过专业培训认证</p>
@@ -147,7 +154,7 @@ function App() {
 
             <div className="advantage-card">
               <div className="advantage-image">
-                <img src="/images/card-screening.png" alt="严格筛选" className="card-img" />
+                <img src="/images/card-screening.png" alt="严格筛选背景审查" className="card-img" />
               </div>
               <h3>严格筛选</h3>
               <p>背景审查 + 多轮面试</p>
@@ -155,7 +162,7 @@ function App() {
 
             <div className="advantage-card">
               <div className="advantage-image">
-                <img src="/images/card-service.png" alt="24小时在线客服" className="card-img" />
+                <img src="/images/card-service.png" alt="24小时在线客服支持" className="card-img" />
               </div>
               <h3>24小时在线客服</h3>
               <p>随时为您解答问题</p>
@@ -163,7 +170,7 @@ function App() {
 
             <div className="advantage-card">
               <div className="advantage-image">
-                <img src="/images/card-support.png" alt="安心保障" className="card-img" />
+                <img src="/images/card-support.png" alt="安心保障应急支持" className="card-img" />
               </div>
               <h3>安心保障</h3>
               <p>24小时应急支持</p>
@@ -232,6 +239,7 @@ function SubmissionForm({ onSuccess }) {
           value={formData.name}
           onChange={handleChange}
           required
+          aria-label="您的姓名"
         />
         
         <input
@@ -241,6 +249,7 @@ function SubmissionForm({ onSuccess }) {
           value={formData.phone}
           onChange={handleChange}
           required
+          aria-label="您的电话"
         />
 
         <select
@@ -248,6 +257,7 @@ function SubmissionForm({ onSuccess }) {
           value={formData.category}
           onChange={handleChange}
           className="form-select"
+          aria-label="服务类型"
         >
           <option value="">请选择服务类型</option>
           {categories.map(cat => (
@@ -261,6 +271,7 @@ function SubmissionForm({ onSuccess }) {
           value={formData.message}
           onChange={handleChange}
           rows="5"
+          aria-label="您的需求"
         />
         
         <button type="submit" className="submit-btn">提交需求</button>
